@@ -1,0 +1,25 @@
+version: "3.5"
+
+services:
+  selenium:
+    image: selenium/standalone-chrome
+    expose:
+      - 4444
+    container_name: "selenium"
+    restart: unless-stopped
+
+  driver1:
+    image: ja573/watch-video
+    container_name: "video-driver1"
+    restart: unless-stopped
+    command: ./run https://www.youtube.com/watch?v=6QKXzEWe60I
+    depends_on:
+      - selenium
+
+  driver2:
+    image: ja573/watch-video
+    container_name: "video-driver2"
+    restart: unless-stopped
+    command: ./run https://www.youtube.com/watch?v=NZf79wX9rTs
+    depends_on:
+      - selenium
